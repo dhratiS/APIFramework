@@ -31,9 +31,11 @@ public class TestClass extends ExtentReportListener{
         test.log(LogStatus.INFO, "Starting test ...");
         response = given().
                     headers(HeaderConfig.defaultHeaders()).
-                when().get(APIPath.GET_LIST_OF_PEOPLE);
+                when().get(APIPath.GET_LIST_OF_PEOPLE).then().extract().response();
         test.log(LogStatus.INFO,response.getBody().prettyPrint());
-        ResponseVerifications.verifyStatusCode(response, 201);
+        ResponseVerifications.verifyStatusCode(response, 200);
+        ResponseVerifications.verifyFemales(response);
 
     }
+
 }
